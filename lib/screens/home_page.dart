@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mosharkaty/classes/credentials.dart';
+import 'package:flutter_mosharkaty/components/alert_dialogs/download_meetings_dialog.dart';
 import 'package:flutter_mosharkaty/components/appBars/common_appbar.dart';
 import 'package:flutter_mosharkaty/components/buttons/gradient_general_btn.dart';
 import 'package:flutter_mosharkaty/res/colors.dart';
@@ -36,72 +37,112 @@ class HomePage extends StatelessWidget {
               ),
             ),
             sBoxHeight6,
-            GradientGeneralButton(
-              gradientColor1: AppColors.golden,
-              gradientColor2: AppColors.lightBlack,
-              // mainColor: AppColors.offWhite,
-              title: teamCodes,
-              btn_icon: Icons.people,
-              param_onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const UploadTeamCodes(),
+            Credentials.userCredentials.isMrkzy
+                ? emptyPlaceHolder
+                : GradientGeneralButton(
+                    gradientColor1: AppColors.golden,
+                    gradientColor2: AppColors.lightBlack,
+                    // mainColor: AppColors.offWhite,
+                    title: teamCodes,
+                    btn_icon: Icons.people,
+                    param_onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const UploadTeamCodes(),
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
-            ),
             ////////////////////////////////////////////////////////
-            sBoxHeight6,
-            GradientGeneralButton(
-              gradientColor1: AppColors.successGreen,
-              gradientColor2: AppColors.lightBlack,
-              // mainColor: AppColors.offWhite,
-              title: allSheet,
-              btn_icon: Icons.copy_all_outlined,
-              param_onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const UploadAllSheet(),
+            Credentials.userCredentials.isMrkzy
+                ? emptyPlaceHolder
+                : sBoxHeight6,
+            Credentials.userCredentials.isMrkzy
+                ? emptyPlaceHolder
+                : GradientGeneralButton(
+                    gradientColor1: AppColors.successGreen,
+                    gradientColor2: AppColors.lightBlack,
+                    // mainColor: AppColors.offWhite,
+                    title: allSheet,
+                    btn_icon: Icons.copy_all_outlined,
+                    param_onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const UploadAllSheet(),
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
-            ),
             ////////////////////////////////////////////////////////
-            sBoxHeight6,
-            GradientGeneralButton(
-              gradientColor1: AppColors.newBlueLight,
-              gradientColor2: AppColors.lightBlack,
-              // mainColor: AppColors.offWhite,
-              title: newVolunteer,
-              btn_icon: Icons.add_call,
-              param_onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const AddNewVolunteer(),
+            Credentials.userCredentials.isMrkzy
+                ? emptyPlaceHolder
+                : sBoxHeight6,
+            Credentials.userCredentials.isMrkzy
+                ? emptyPlaceHolder
+                : GradientGeneralButton(
+                    gradientColor1: AppColors.newBlueLight,
+                    gradientColor2: AppColors.lightBlack,
+                    // mainColor: AppColors.offWhite,
+                    title: newVolunteer,
+                    btn_icon: Icons.add_call,
+                    param_onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AddNewVolunteer(),
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
-            ),
             ////////////////////////////////////////////////////////
-            sBoxHeight6,
-            GradientGeneralButton(
-              gradientColor1: AppColors.offerRed,
-              gradientColor2: AppColors.lightBlack,
-              // mainColor: AppColors.offWhite,
-              title: newTeamVolunteer,
-              btn_icon: Icons.add,
-              param_onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const AddNewTeam(),
+            Credentials.userCredentials.isMrkzy
+                ? emptyPlaceHolder
+                : sBoxHeight6,
+            Credentials.userCredentials.isMrkzy
+                ? emptyPlaceHolder
+                : GradientGeneralButton(
+                    gradientColor1: AppColors.offerRed,
+                    gradientColor2: AppColors.lightBlack,
+                    // mainColor: AppColors.offWhite,
+                    title: newTeamVolunteer,
+                    btn_icon: Icons.add,
+                    param_onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AddNewTeam(),
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
-            ),
+            /////////////////////////////////////////////////////////////////////
+            !Credentials.userCredentials.isMrkzy
+                ? emptyPlaceHolder
+                : sBoxHeight6,
+            !Credentials.userCredentials.isMrkzy
+                ? emptyPlaceHolder
+                : GradientGeneralButton(
+                    gradientColor1: AppColors.successGreen,
+                    gradientColor2: AppColors.lightBlack,
+                    // mainColor: AppColors.offWhite,
+                    title: meetingsSheetDownload,
+                    btn_icon: Icons.meeting_room,
+                    param_onPressed: () {
+                      //todo : add meetings excel mrkzy (for goda)
+                      showDialog(
+                        context: context,
+                        builder: (context) => const DownloadMeetingsDialog(),
+                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => const AddNewTeam(),
+                      //   ),
+                      // );
+                    },
+                  ),
             /////////////////////////////////////////////////////////////////////
             sBoxHeight12,
             Align(

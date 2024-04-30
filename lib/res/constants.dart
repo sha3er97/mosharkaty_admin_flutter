@@ -33,6 +33,7 @@ const newVolunteer = "اضافة متطوع جديد";
 const uploadBtnTxt = "ارفع شيت جديد";
 const exportBtnTxt = "تحميل الشيت الحالي";
 const newTeamVolunteer = "اضافة متطوع فريق جديد";
+const meetingsSheetDownload = 'تحميل اجتماعات الشهر';
 
 List<String> branches = [
   "المهندسين",
@@ -51,3 +52,18 @@ List<String> degrees = [
   "مشروع مسئول",
   "مجمد",
 ];
+// Define a map to store month numbers with their corresponding names in Arabic
+Map<int, String> arabicMonths = {
+  1: 'يناير',
+  2: 'فبراير',
+  3: 'مارس',
+  4: 'أبريل',
+  5: 'مايو',
+  6: 'يونيو',
+  7: 'يوليو',
+  8: 'أغسطس',
+  9: 'سبتمبر',
+  10: 'أكتوبر',
+  11: 'نوفمبر',
+  12: 'ديسمبر',
+};

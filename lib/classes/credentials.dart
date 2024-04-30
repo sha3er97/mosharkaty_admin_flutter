@@ -3,18 +3,20 @@ import 'package:flutter_mosharkaty/res/constants.dart';
 
 class Credentials {
   String branch;
+  bool isMrkzy;
 
   ///data holder
   static Credentials userCredentials =
-      Credentials(branch: branches[BRANCHES_COUNT]);
+      Credentials(branch: branches[BRANCHES_COUNT], isMrkzy: true);
 
-  Credentials({required this.branch});
+  Credentials({required this.branch, required this.isMrkzy});
 
   factory Credentials.fromSnapshot(DataSnapshot snapshot) {
     Map<dynamic, dynamic> map =
         Map<String, dynamic>.from(snapshot.value! as Map<String, dynamic>);
     return Credentials(
       branch: map['branch'],
+      isMrkzy: map['branch'] == branches[BRANCHES_COUNT],
     );
   }
 
@@ -25,7 +27,7 @@ class Credentials {
       Credentials.userCredentials = Credentials.fromSnapshot(event.snapshot);
     } else {
       Credentials.userCredentials =
-          Credentials(branch: branches[BRANCHES_COUNT]);
+          Credentials(branch: branches[BRANCHES_COUNT], isMrkzy: true);
       print("error fetching credentials details");
     }
   }

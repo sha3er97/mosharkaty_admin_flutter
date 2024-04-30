@@ -83,7 +83,6 @@ class _MasterButtonState extends State<MasterButton> {
                             ? Text(
                                 widget.name,
                                 style: TextStyle(
-                                  fontFamily: "newJf",
                                   color: widget.textColor,
                                   fontSize: 14,
                                 ),
