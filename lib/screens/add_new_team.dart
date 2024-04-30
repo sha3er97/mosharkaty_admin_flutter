@@ -1,16 +1,12 @@
-import 'package:file_picker/file_picker.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mosharkaty/classes/TeamVolunteer.dart';
-import 'package:flutter_mosharkaty/classes/credentials.dart';
 import 'package:flutter_mosharkaty/components/appBars/common_appbar.dart';
 import 'package:flutter_mosharkaty/components/buttons/master_btn.dart';
 import 'package:flutter_mosharkaty/components/textFields/textFieldWithTitle.dart';
 import 'package:flutter_mosharkaty/res/colors.dart';
 import 'package:flutter_mosharkaty/res/constants.dart';
-import 'package:flutter_mosharkaty/res/constants.dart';
 import 'package:flutter_mosharkaty/res/spaces.dart';
-import 'package:flutter_mosharkaty/res/textUtilities.dart';
 import 'package:flutter_mosharkaty/res/utility_funcs.dart';
 import 'package:flutter_mosharkaty/screens/error_success_screens/loading_screen.dart';
 import 'package:get/get.dart';

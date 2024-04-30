@@ -23,6 +23,7 @@ class _AddNewVolunteerState extends State<AddNewVolunteer> {
   bool _name_validate = false;
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
+  List<String> names = [];
 
   @override
   Widget build(BuildContext context) {
@@ -50,13 +51,12 @@ class _AddNewVolunteerState extends State<AddNewVolunteer> {
                           .add(NormalVolunteer.fromSnapshot(snapshotValue[i]));
                     }
                   }
-                  // Map<dynamic, dynamic> values = Map<dynamic, dynamic>.from(
-                  //     (snapshot.data!).snapshot.value as Map<dynamic, dynamic>);
-                  // print((snapshot.data!).snapshot.value);
-
-                  // values.forEach((key, value) {
-                  //   uploadedData.add(NormalVolunteer.fromSnapshot(value));
-                  // });
+                  if (uploadedData.isNotEmpty) {
+                    names = uploadedData
+                        .map((volunteer) => volunteer.Volname)
+                        .toList();
+                    // print("length = ${names.length}");
+                  }
                   lastId = uploadedData.last.id;
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -157,15 +157,63 @@ class _AddNewVolunteerState extends State<AddNewVolunteer> {
                       _name_validate = emptyField(_nameController.text);
                     });
                     if (!_name_validate) {
-                      await NormalVolunteer.addVolunteer(
-                        _phoneController.text,
-                        _nameController.text,
-                        lastId + 1,
-                      );
-                      setState(() {
-                        _nameController.clear();
-                        _phoneController.clear();
-                      });
+                      if (names.contains(_nameController.text.trim())) {
+                        showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                  title: const Text(
+                                    'الاسم مكرر انت متاكد انك عايز تضيفه ؟',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: AppColors.newBlueDark,
+                                      fontFamily: 'Master',
+                                    ),
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text(
+                                        'إلغاء',
+                                        style: TextStyle(
+                                          color: AppColors.offerRed,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: () async {
+                                        await addVolunteerMethod().then(
+                                            (value) =>
+                                                Navigator.of(context).pop());
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: AppColors.successGreen,
+                                      ),
+                                      child: const Text(
+                                        'تأكيد',
+                                        style: TextStyle(
+                                          color: AppColors.white,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ));
+                      } else {
+                        //not duplicate
+                        if (lastId == -1) {
+                          Get.snackbar(
+                            "Error",
+                            "sheet didn't finish loading",
+                            snackPosition: SnackPosition.BOTTOM,
+                            backgroundColor: AppColors.offerRed,
+                          );
+                        } else {
+                          await addVolunteerMethod();
+                        }
+                      }
                     } else {
                       Get.snackbar(
                         "Form Error",
@@ -183,5 +231,17 @@ class _AddNewVolunteerState extends State<AddNewVolunteer> {
         ),
       ),
     );
+  }
+
+  Future<void> addVolunteerMethod() async {
+    await NormalVolunteer.addVolunteer(
+      _phoneController.text.trim(),
+      _nameController.text.trim(),
+      lastId + 1,
+    );
+    setState(() {
+      _nameController.clear();
+      _phoneController.clear();
+    });
   }
 }
